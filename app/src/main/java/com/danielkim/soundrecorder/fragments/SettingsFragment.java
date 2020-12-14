@@ -5,6 +5,7 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.danielkim.soundrecorder.BuildConfig;
 import com.danielkim.soundrecorder.MySharedPreferences;
@@ -16,16 +17,19 @@ import com.danielkim.soundrecorder.activities.SettingsActivity;
  */
 
 public class SettingsFragment extends PreferenceFragment {
+    private static final String LOG_TAG = SettingsFragment.class.getSimpleName();
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
 
+        Log.e(LOG_TAG+"  KEG","onCreate()");
         CheckBoxPreference highQualityPref = (CheckBoxPreference) findPreference(getResources().getString(R.string.pref_high_quality_key));
         highQualityPref.setChecked(MySharedPreferences.getPrefHighQuality(getActivity()));
         highQualityPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
+                Log.e(LOG_TAG+" KEG","highQualityPref.setOnPreferenceChangeListener");
                 MySharedPreferences.setPrefHighQuality(getActivity(), (boolean) newValue);
                 return true;
             }
@@ -36,6 +40,7 @@ public class SettingsFragment extends PreferenceFragment {
         aboutPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
+                Log.e(LOG_TAG+"  KEG","aboutPref.setOnPreferenceClickListener");
                 LicensesFragment licensesFragment = new LicensesFragment();
                 licensesFragment.show(((SettingsActivity)getActivity()).getSupportFragmentManager().beginTransaction(), "dialog_licenses");
                 return true;

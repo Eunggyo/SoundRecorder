@@ -78,6 +78,7 @@ public class RecordingService extends Service {
     }
 
     public void startRecording() {
+        Log.e(LOG_TAG+" KEG","startRecording()");
         setFileNameAndPath();
 
         mRecorder = new MediaRecorder();
@@ -105,6 +106,7 @@ public class RecordingService extends Service {
     }
 
     public void setFileNameAndPath(){
+        Log.e(LOG_TAG+" KEG","setFileNameAndPath()");
         int count = 0;
         File f;
 
@@ -121,6 +123,7 @@ public class RecordingService extends Service {
     }
 
     public void stopRecording() {
+        Log.e(LOG_TAG+" KEG","stopRecording()");
         mRecorder.stop();
         mElapsedMillis = (System.currentTimeMillis() - mStartingTimeMillis);
         mRecorder.release();
@@ -143,6 +146,7 @@ public class RecordingService extends Service {
     }
 
     private void startTimer() {
+        Log.e(LOG_TAG+" KEG","startTimer()");
         mTimer = new Timer();
         mIncrementTimerTask = new TimerTask() {
             @Override
@@ -159,6 +163,7 @@ public class RecordingService extends Service {
 
     //TODO:
     private Notification createNotification() {
+        Log.e(LOG_TAG+" KEG","createNotification()");
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(getApplicationContext())
                         .setSmallIcon(R.drawable.ic_mic_white_36dp)

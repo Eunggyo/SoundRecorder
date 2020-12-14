@@ -46,6 +46,7 @@ public class FileViewerAdapter extends RecyclerView.Adapter<FileViewerAdapter.Re
 
     public FileViewerAdapter(Context context, LinearLayoutManager linearLayoutManager) {
         super();
+        Log.e(LOG_TAG+"KEG","FileViewrAdapter(Context context , LinearLayoutManager linearLayoutManager");
         mContext = context;
         mDatabase = new DBHelper(mContext);
         mDatabase.setOnDatabaseChangedListener(this);
@@ -54,7 +55,7 @@ public class FileViewerAdapter extends RecyclerView.Adapter<FileViewerAdapter.Re
 
     @Override
     public void onBindViewHolder(final RecordingsViewHolder holder, int position) {
-
+        Log.e(LOG_TAG+"KEG","onBindViewHolder(final RecordingsViewHolder holder , int position");
         item = getItem(position);
         long itemDuration = item.getLength();
 
@@ -136,7 +137,7 @@ public class FileViewerAdapter extends RecyclerView.Adapter<FileViewerAdapter.Re
 
     @Override
     public RecordingsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
+        Log.e(LOG_TAG+"KEG","onCreateViewHolder(ViewGroup parent , int viewType");
         View itemView = LayoutInflater.
                 from(parent.getContext()).
                 inflate(R.layout.card_view, parent, false);
@@ -154,6 +155,7 @@ public class FileViewerAdapter extends RecyclerView.Adapter<FileViewerAdapter.Re
 
         public RecordingsViewHolder(View v) {
             super(v);
+            Log.e(LOG_TAG+"KEG","RecordingsViewHolder(View v)");
             vName = (TextView) v.findViewById(R.id.file_name_text);
             vLength = (TextView) v.findViewById(R.id.file_length_text);
             vDateAdded = (TextView) v.findViewById(R.id.file_date_added_text);
@@ -173,6 +175,7 @@ public class FileViewerAdapter extends RecyclerView.Adapter<FileViewerAdapter.Re
     @Override
     public void onNewDatabaseEntryAdded() {
         //item added to top of the list
+        Log.e(LOG_TAG+"KEG","onNewDatabaseEntryAdded()");
         notifyItemInserted(getItemCount() - 1);
         llm.scrollToPosition(getItemCount() - 1);
     }
@@ -187,6 +190,7 @@ public class FileViewerAdapter extends RecyclerView.Adapter<FileViewerAdapter.Re
         //remove item from database, recyclerview and storage
 
         //delete file from storage
+        Log.e(LOG_TAG+"KEG","remove(int position");
         File file = new File(getItem(position).getFilePath());
         file.delete();
 
@@ -210,6 +214,7 @@ public class FileViewerAdapter extends RecyclerView.Adapter<FileViewerAdapter.Re
 
     public void rename(int position, String name) {
         //rename a file
+        Log.e(LOG_TAG+"KEG","rename(int position , String name");
 
         String mFilePath = Environment.getExternalStorageDirectory().getAbsolutePath();
         mFilePath += "/SoundRecorder/" + name;
@@ -231,6 +236,7 @@ public class FileViewerAdapter extends RecyclerView.Adapter<FileViewerAdapter.Re
     }
 
     public void shareFileDialog(int position) {
+        Log.e(LOG_TAG+"KEG","shareFileDialog(int position)");
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(getItem(position).getFilePath())));
@@ -240,6 +246,7 @@ public class FileViewerAdapter extends RecyclerView.Adapter<FileViewerAdapter.Re
 
     public void renameFileDialog (final int position) {
         // File rename dialog
+        Log.e(LOG_TAG+"KEG","renameFileDialog(int position");
         AlertDialog.Builder renameFileBuilder = new AlertDialog.Builder(mContext);
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
@@ -277,6 +284,7 @@ public class FileViewerAdapter extends RecyclerView.Adapter<FileViewerAdapter.Re
 
     public void deleteFileDialog (final int position) {
         // File delete confirm
+        Log.e(LOG_TAG+"KEG","deleteFileDialog(int position)");
         AlertDialog.Builder confirmDelete = new AlertDialog.Builder(mContext);
         confirmDelete.setTitle(mContext.getString(R.string.dialog_title_delete));
         confirmDelete.setMessage(mContext.getString(R.string.dialog_text_delete));

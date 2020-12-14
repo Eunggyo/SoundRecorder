@@ -51,6 +51,7 @@ public class PlaybackFragment extends DialogFragment{
     long seconds = 0;
 
     public PlaybackFragment newInstance(RecordingItem item) {
+        Log.e(LOG_TAG+" KEG","PlaybackFragment newInstance(RecordingItem item)");
         PlaybackFragment f = new PlaybackFragment();
         Bundle b = new Bundle();
         b.putParcelable(ARG_ITEM, item);
@@ -62,6 +63,7 @@ public class PlaybackFragment extends DialogFragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e(LOG_TAG+" KEG","onCreate");
         item = getArguments().getParcelable(ARG_ITEM);
 
         long itemDuration = item.getLength();
@@ -78,7 +80,7 @@ public class PlaybackFragment extends DialogFragment{
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
+        Log.e(LOG_TAG+" KEG","onCreateDialog(Bundle savedInstanceState)");
         Dialog dialog = super.onCreateDialog(savedInstanceState);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -98,6 +100,7 @@ public class PlaybackFragment extends DialogFragment{
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if(mMediaPlayer != null && fromUser) {
+                    Log.e(LOG_TAG+" KEG","onProgressChanged(SeekBar seekBar , int progress , boolean fromUser");
                     mMediaPlayer.seekTo(progress);
                     mHandler.removeCallbacks(mRunnable);
 
@@ -116,6 +119,7 @@ public class PlaybackFragment extends DialogFragment{
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+                Log.e(LOG_TAG+" KEG","onSTartTrackingTouch(SeekBar seekBar");
                 if(mMediaPlayer != null) {
                     // remove message Handler from updating progress bar
                     mHandler.removeCallbacks(mRunnable);
@@ -124,6 +128,7 @@ public class PlaybackFragment extends DialogFragment{
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                Log.e(LOG_TAG+" KEG","onStopTrackingTouch(SeekBar seekBar");
                 if (mMediaPlayer != null) {
                     mHandler.removeCallbacks(mRunnable);
                     mMediaPlayer.seekTo(seekBar.getProgress());
@@ -161,6 +166,7 @@ public class PlaybackFragment extends DialogFragment{
     public void onStart() {
         super.onStart();
 
+        Log.e(LOG_TAG+" KEG","onStart()");
         //set transparent background
         Window window = getDialog().getWindow();
         window.setBackgroundDrawableResource(android.R.color.transparent);
@@ -176,6 +182,7 @@ public class PlaybackFragment extends DialogFragment{
     public void onPause() {
         super.onPause();
 
+        Log.e(LOG_TAG+" KEG","onPause");
         if (mMediaPlayer != null) {
             stopPlaying();
         }
@@ -184,7 +191,7 @@ public class PlaybackFragment extends DialogFragment{
     @Override
     public void onDestroy() {
         super.onDestroy();
-
+        Log.e(LOG_TAG+" KEG","onDestory()");
         if (mMediaPlayer != null) {
             stopPlaying();
         }
@@ -192,6 +199,7 @@ public class PlaybackFragment extends DialogFragment{
 
     // Play start/stop
     private void onPlay(boolean isPlaying){
+        Log.e(LOG_TAG+" KEG","onPlay(boolean isPlaying");
         if (!isPlaying) {
             //currently MediaPlayer is not playing audio
             if(mMediaPlayer == null) {
@@ -207,6 +215,7 @@ public class PlaybackFragment extends DialogFragment{
     }
 
     private void startPlaying() {
+        Log.e(LOG_TAG+" KEG","startPlaying()");
         mPlayButton.setImageResource(R.drawable.ic_media_pause);
         mMediaPlayer = new MediaPlayer();
 
@@ -240,7 +249,7 @@ public class PlaybackFragment extends DialogFragment{
 
     private void prepareMediaPlayerFromPoint(int progress) {
         //set mediaPlayer to start from middle of the audio file
-
+        Log.e(LOG_TAG+" KEG","preparedMediaPlayerFromPoint(int progess)");
         mMediaPlayer = new MediaPlayer();
 
         try {
@@ -265,12 +274,14 @@ public class PlaybackFragment extends DialogFragment{
     }
 
     private void pausePlaying() {
+        Log.e(LOG_TAG+" KEG","pausePlaying()");
         mPlayButton.setImageResource(R.drawable.ic_media_play);
         mHandler.removeCallbacks(mRunnable);
         mMediaPlayer.pause();
     }
 
     private void resumePlaying() {
+        Log.e(LOG_TAG+" KEG","resumePlaying()");
         mPlayButton.setImageResource(R.drawable.ic_media_pause);
         mHandler.removeCallbacks(mRunnable);
         mMediaPlayer.start();
@@ -278,6 +289,7 @@ public class PlaybackFragment extends DialogFragment{
     }
 
     private void stopPlaying() {
+        Log.e(LOG_TAG+" KEG","stopPlaying()");
         mPlayButton.setImageResource(R.drawable.ic_media_play);
         mHandler.removeCallbacks(mRunnable);
         mMediaPlayer.stop();
@@ -299,6 +311,7 @@ public class PlaybackFragment extends DialogFragment{
     private Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
+            Log.e(LOG_TAG+" KEG","mRunnable");
             if(mMediaPlayer != null){
 
                 int mCurrentPosition = mMediaPlayer.getCurrentPosition();
@@ -315,6 +328,7 @@ public class PlaybackFragment extends DialogFragment{
     };
 
     private void updateSeekBar() {
+        Log.e(LOG_TAG+" KEG","updateSeekBar()");
         mHandler.postDelayed(mRunnable, 1000);
     }
 }

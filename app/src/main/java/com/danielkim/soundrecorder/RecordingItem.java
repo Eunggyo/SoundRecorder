@@ -2,6 +2,9 @@ package com.danielkim.soundrecorder;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
+
+import com.danielkim.soundrecorder.activities.MainActivity;
 
 /**
  * Created by Daniel on 12/30/2014.
@@ -12,7 +15,7 @@ public class RecordingItem implements Parcelable {
     private int mId; //id in database
     private int mLength; // length of recording in seconds
     private long mTime; // date/time of the recording
-
+    private static final String LOG_TAG = RecordingItem.class.getSimpleName();
     public RecordingItem()
     {
     }
@@ -66,17 +69,21 @@ public class RecordingItem implements Parcelable {
     }
 
     public static final Parcelable.Creator<RecordingItem> CREATOR = new Parcelable.Creator<RecordingItem>() {
-        public RecordingItem createFromParcel(Parcel in) {
+        public RecordingItem createFromParcel(Parcel in)
+        {
+            Log.e(LOG_TAG+"KEG","createFormParcel(Parcel in)");
             return new RecordingItem(in);
         }
 
         public RecordingItem[] newArray(int size) {
+            Log.e(LOG_TAG+"KEG","newArray(int size)");
             return new RecordingItem[size];
         }
     };
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        Log.e(LOG_TAG+"KEG","writeToParcel(Parcel dest,int flags");
         dest.writeInt(mId);
         dest.writeInt(mLength);
         dest.writeLong(mTime);

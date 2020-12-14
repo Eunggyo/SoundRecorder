@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,7 @@ public class RecordFragment extends Fragment {
      * @return A new instance of fragment Record_Fragment.
      */
     public static RecordFragment newInstance(int position) {
+        Log.e(LOG_TAG+" KEG","RecordFragment newInstance(int position)");
         RecordFragment f = new RecordFragment();
         Bundle b = new Bundle();
         b.putInt(ARG_POSITION, position);
@@ -68,12 +70,14 @@ public class RecordFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e(LOG_TAG+" KEG","onCreate");
         position = getArguments().getInt(ARG_POSITION);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.e(LOG_TAG+" KEG","onCreateView(LayoutInflater inflater , ViewGroup container, Bundle savedInstanceState)");
         View recordView = inflater.inflate(R.layout.fragment_record, container, false);
 
         mChronometer = (Chronometer) recordView.findViewById(R.id.chronometer);
@@ -107,7 +111,7 @@ public class RecordFragment extends Fragment {
     // Recording Start/Stop
     //TODO: recording pause
     private void onRecord(boolean start){
-
+        Log.e(LOG_TAG+" KEG","onRecord(boolean start)");
         Intent intent = new Intent(getActivity(), RecordingService.class);
 
         if (start) {
@@ -166,6 +170,7 @@ public class RecordFragment extends Fragment {
     //TODO: implement pause recording
     private void onPauseRecord(boolean pause) {
         if (pause) {
+            Log.e(LOG_TAG+" KEG","pauseRecord");
             //pause recording
             mPauseButton.setCompoundDrawablesWithIntrinsicBounds
                     (R.drawable.ic_media_play ,0 ,0 ,0);
@@ -174,6 +179,7 @@ public class RecordFragment extends Fragment {
             mChronometer.stop();
         } else {
             //resume recording
+            Log.e(LOG_TAG+" KEG","resumeRecord");
             mPauseButton.setCompoundDrawablesWithIntrinsicBounds
                     (R.drawable.ic_media_pause ,0 ,0 ,0);
             mRecordingPrompt.setText((String)getString(R.string.pause_recording_button).toUpperCase());

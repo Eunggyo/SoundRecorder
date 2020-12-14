@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -42,12 +43,16 @@ public class MainActivity extends ActionBarActivity{
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
+
+
+        Log.e(LOG_TAG+"KEG","onCreate()");
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        Log.e(LOG_TAG+"KEG","onCreateOptionsMenu(Menu menu)");
         return true;
     }
 
@@ -57,6 +62,7 @@ public class MainActivity extends ActionBarActivity{
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         // Handle presses on the action bar items
+        Log.e(LOG_TAG+"KEG","onOptionsItemSelected(MenuItem item");
         switch (item.getItemId()) {
             case R.id.action_settings:
                 Intent i = new Intent(this, SettingsActivity.class);
@@ -79,9 +85,11 @@ public class MainActivity extends ActionBarActivity{
         public Fragment getItem(int position) {
             switch(position){
                 case 0:{
+                    Log.e(LOG_TAG+"KEG","choose RecordFragment");
                     return RecordFragment.newInstance(position);
                 }
                 case 1:{
+                    Log.e(LOG_TAG+"KEG","choose FileViewrFragment");
                     return FileViewerFragment.newInstance(position);
                 }
             }

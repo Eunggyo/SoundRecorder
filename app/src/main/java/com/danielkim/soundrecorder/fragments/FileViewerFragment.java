@@ -25,6 +25,7 @@ public class FileViewerFragment extends Fragment{
     private FileViewerAdapter mFileViewerAdapter;
 
     public static FileViewerFragment newInstance(int position) {
+        Log.e(LOG_TAG+" KEG","FileViewerFragment(int position)");
         FileViewerFragment f = new FileViewerFragment();
         Bundle b = new Bundle();
         b.putInt(ARG_POSITION, position);
@@ -36,12 +37,15 @@ public class FileViewerFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e(LOG_TAG+" KEG","onCreate");
         position = getArguments().getInt(ARG_POSITION);
         observer.startWatching();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.e(LOG_TAG+"KEG","onCreateView(LayoutInflater inflater , ViewGroup container , Bundle savedInstanceState");
         View v = inflater.inflate(R.layout.fragment_file_viewer, container, false);
 
         RecyclerView mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
@@ -70,7 +74,7 @@ public class FileViewerFragment extends Fragment{
                 public void onEvent(int event, String file) {
                     if(event == FileObserver.DELETE){
                         // user deletes a recording file out of the app
-
+                        Log.e(LOG_TAG+"KEG","onEvent(int event, String file)");
                         String filePath = android.os.Environment.getExternalStorageDirectory().toString()
                                 + "/SoundRecorder" + file + "]";
 

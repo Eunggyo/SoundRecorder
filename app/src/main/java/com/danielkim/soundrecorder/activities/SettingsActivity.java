@@ -8,8 +8,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.danielkim.soundrecorder.R;
+import com.danielkim.soundrecorder.RecordingItem;
 import com.danielkim.soundrecorder.fragments.SettingsFragment;
 
 /**
@@ -17,10 +19,13 @@ import com.danielkim.soundrecorder.fragments.SettingsFragment;
  */
 
 public class SettingsActivity extends android.support.v7.app.ActionBarActivity {
+
+    private static final String LOG_TAG = SettingsActivity.class.getSimpleName();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
+        Log.e("SettingsActivity KEG","onCreate()");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setPopupTheme(R.style.ThemeOverlay_AppCompat_Light);
